@@ -7,12 +7,14 @@ import Dashboard from './pages/Dashboard'
 import Projects from './pages/Projects'
 
 import React from 'react'
+import Header from './components/Header'
 
 export default function App() {
   
   return (
-    <><h1 className='text-3xl text-red-500'>app</h1>
+    
     <BrowserRouter>
+    <Header/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -22,7 +24,7 @@ export default function App() {
         <Route path="/projects" element={<Projects />} />
 
       </Routes>
-    </BrowserRouter></>
+    </BrowserRouter>
   )
 }
 
