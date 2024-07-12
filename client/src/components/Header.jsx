@@ -2,7 +2,7 @@ import React from 'react'
 import {Avatar, Button, Dropdown, Navbar, TextInput} from 'flowbite-react'
 import { Link,useLocation } from 'react-router-dom'
 import {AiOutlineSearch} from 'react-icons/ai';
-import {FaMoon} from 'react-icons/fa';
+import {FaMoon, FaSun} from 'react-icons/fa';
 import {useSelector} from 'react-redux';
 
 export default function Header() {
@@ -34,17 +34,12 @@ export default function Header() {
             </Button>
             {currentUser ? (
             <Dropdown
-              arrowIcon={false}
-              inline
-              label={
-            <Avatar
-            alt='user'
-            img={currentUser.profilePicture}
-            rounded
-            />
+            arrowIcon={false}
+            inline
+            label = {<Avatar alt='user' img={currentUser.profilePicture} rounded/>}
+        >
 
-             }
-            >
+             
           <Dropdown.Header>
             <span className='block text-sm'>@{currentUser.username}</span>
             <span className='block text-sm font-medium truncate'>{currentUser.email}</span>
@@ -53,7 +48,7 @@ export default function Header() {
           <Dropdown.Item>Profile</Dropdown.Item>
           </Link>
           <Dropdown.Divider/>
-          <Dropdown.Item>Signout</Dropdown.Item>
+          <Dropdown.Item>Sign out</Dropdown.Item>
             
           </Dropdown>
 
