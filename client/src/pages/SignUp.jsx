@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Link} from 'react-router-dom';
 import {Button, Label, TextInput} from 'flowbite-react'
 
 
 export default function SignUp() {
+  const [formData, setFormData]= useState({});
+  const handleChange=(e)=>{
+    setFormData({...formData, [e.target.id]:e.target.value});
+  };
+  const handleSubmit= async(e)=>{
+    e.preventDefault();
+    try{
+      const res= await fetch('/api/auth/signup',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(formData),
+      });
+      const data= await res.json();
+      //console.log(data);
+    }catch(error){
+
+    }
+  };
   return (
     <div className='min-h-screen mt-20'>
       <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row 
@@ -25,20 +43,23 @@ export default function SignUp() {
         </div>
           {/*rightside*/}
           <div className='flex-1'>
-            <form className='flex flex-col gap-4'>
+          <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
               <div>
                 <Label value='Your username'/>
-                <TextInput type='text' placeholder='Username' id='username'/>
+                <TextInput type='text' placeholder='Username' id='username' 
+                onChange={handleChange}/>
               </div>
               <div>
                 <Label value='Your email'/>
-                <TextInput type='text' placeholder='name@company.com' id='email'/>
+                <TextInput type='email' placeholder='name@company.com' id='email'
+                onChange={handleChange}/>
               </div>
               <div>
                 <Label value='Your password'/>
-                <TextInput type='text' placeholder='Password' id='password'/>
+                <TextInput type='password' placeholder='Password' id='password'
+                onChange={handleChange}/>
               </div>
-              <Button gradientDuoTone='purpleToPink' tupe='submit'> 
+              <Button gradientDuoTone='purpleToPink' type='submit'> 
                 Sign Up
               </Button>
             </form>
