@@ -2,3 +2,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import 'flowbite';
+
+body{
+    height: 100vh;
+}
+.ql-editor{
+    font-size: 1.05rem;
+}
