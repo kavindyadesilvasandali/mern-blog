@@ -14,6 +14,8 @@ import {
   uploadBytesResumable,
 } from 'firebase/storage';
 import { app } from '../firebase';
+import { useNavigate } from 'react-router-dom';
+
 
 
 export default function CreatePost() {
