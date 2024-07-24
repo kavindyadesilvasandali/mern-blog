@@ -1,13 +1,16 @@
-import React ,{useEffect} from 'react'
+import React ,{useEffect, useState} from 'react'
 import {useSelector} from 'react-redux';
-import { Table } from 'flowbite-react';
+import { Table , Modal, Button} from 'flowbite-react';
+import {Link} from 'react-router-dom'
+import {HiOutlineExclamationCircle} from 'react-icons/hi'
+
 
 export default function DashPosts() {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
-  //const [showModal, setShowModal] = useState(false);
-  //const [postIdToDelete, setPostIdToDelete] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [postIdToDelete, setPostIdToDelete] = useState('');
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -40,6 +43,28 @@ export default function DashPosts() {
         if (data.posts.length < 9) {
           setShowMore(false);
         }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleDeletePost = async () => {
+    setShowModal(false);
+    try {
+      const res = await fetch(
+        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setUserPosts((prev) =>
+          prev.filter((post) => post._id !== postIdToDelete)
+        );
       }
     } catch (error) {
       console.log(error.message);
