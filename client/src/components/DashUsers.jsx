@@ -47,7 +47,7 @@ export default function DashUsers() {
   };
 
   const handleDeleteUser = async () => {
-    /*try {
+    try {
         const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
             method: 'DELETE',
         });
@@ -60,7 +60,7 @@ export default function DashUsers() {
         }
     } catch (error) {
         console.log(error.message);
-    }*/
+    }
   };
 
   return (
