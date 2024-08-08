@@ -1,6 +1,7 @@
 import React from 'react'
 import {Sidebar, SidebarItemGroup} from 'flowbite-react'
-import {HiUser, HiArrowSmRight, HiDocument, HiDocumentText, HiOutlineUserGroup} from 'react-icons/hi';
+import {HiUser, HiArrowSmRight, HiDocument, HiDocumentText, HiOutlineUserGroup, HiAnnotation,
+  HiChartPie,} from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
@@ -12,9 +13,8 @@ export default function DashSideBar() {
     const location = useLocation()
     const dispatch = useDispatch();
     const {currentUser}= useSelector(state=> state.user);
-  const [tab, setTab]= useState('')
-  useEffect(()=>
-  {
+    const [tab, setTab]= useState('')
+    useEffect(()=>{
     const urlParams = new URLSearchParams(location.search)
     const tabFromUrl = urlParams.get('tab');
     if (tabFromUrl){
@@ -42,6 +42,17 @@ export default function DashSideBar() {
    <Sidebar className='w-full md:w-56'>
     <Sidebar.Items>
         <SidebarItemGroup className='flex flex-col gap-1'>
+        {currentUser && currentUser.isAdmin && (
+            <Link to='/dashboard?tab=dash'>
+              <Sidebar.Item
+                active={tab === 'dash' || !tab}
+                icon={HiChartPie}
+                as='div'
+              >
+                Dashboard
+              </Sidebar.Item>
+            </Link>
+          )}
         <Link to='/dashboard?tab=profile'>
             <Sidebar.Item
               active={tab === 'profile'}
@@ -65,7 +76,7 @@ export default function DashSideBar() {
             </Link>
           )}
 
-{currentUser.isAdmin && (
+         {currentUser.isAdmin && (
             <>
               <Link to='/dashboard?tab=users'>
                 <Sidebar.Item
@@ -87,11 +98,8 @@ export default function DashSideBar() {
               </Link>
             </>
           )}
-            
-            
-            
-            
-            <Sidebar.Item  icon={HiArrowSmRight} className='cursor-pointer' onClick={handleSignout}>
+      
+          <Sidebar.Item  icon={HiArrowSmRight} className='cursor-pointer' onClick={handleSignout}>
                 Sign Out
             </Sidebar.Item>
         </SidebarItemGroup>
